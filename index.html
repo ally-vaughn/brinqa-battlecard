@@ -1188,9 +1188,67 @@ header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 @media (max-width: 600px) {
 .tabs { padding: 0.4rem 0.75rem; }
 }
+
+/* ── Password gate ── */
+#pw-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.pw-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(0,175,102,0.25);
+  border-radius: 16px;
+  padding: 2.5rem 2.25rem 2rem;
+  max-width: 380px; width: 90%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+.pw-logo { width: 160px; margin-bottom: 1.75rem; }
+.pw-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; }
+.pw-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.pw-input {
+  width: 100%; padding: 0.75rem 1rem;
+  background: var(--bg-elevated); border: 1px solid var(--border-normal);
+  border-radius: var(--radius-sm); color: var(--text-primary);
+  font-size: 0.95rem; font-family: inherit;
+  outline: none; margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+.pw-input:focus { border-color: var(--accent); }
+.pw-submit {
+  width: 100%; padding: 0.75rem;
+  background: var(--accent-gradient); border: none;
+  border-radius: var(--radius-sm); color: #fff;
+  font-size: 0.95rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.pw-submit:hover { opacity: 0.88; }
+.pw-error { font-size: 0.8rem; color: var(--they-win); margin-top: 0.75rem; min-height: 1.2em; }
+@keyframes pw-shake {
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-8px)}
+  40%,80%{transform:translateX(8px)}
+}
+.pw-shake { animation: pw-shake 0.4s ease; }
+#pw-main { display: none; }
+#pw-main.unlocked { display: block; }
 </style>
 </head>
 <body>
+
+<div id="pw-gate">
+  <div class="pw-card">
+    <img id="pw-logo-img" src="" class="pw-logo" alt="Brinqa">
+    <div class="pw-title">Competitive Battlecard</div>
+    <div class="pw-sub">This resource is for authorized Brinqa personnel only.</div>
+    <input type="password" id="pw-input" class="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')pwSubmit()">
+    <button class="pw-submit" onclick="pwSubmit()">Access Battlecard</button>
+    <div class="pw-error" id="pw-error"></div>
+  </div>
+</div>
+
+<div id="pw-main">
 
 <header>
 <div class="header-inner">
@@ -3361,6 +3419,40 @@ buildMatrix();
 <span>Brinqa · UEM & RBVM Competitive Intelligence · Internal Use Only</span>
 <span class="badge">🕐 Last updated: April 19, 2026</span>
 </div>
+
+</div><!-- /pw-main -->
+
+<script>
+(async function(){
+  const HASH='391864ab289c2f04d937d01824ea73414417f439540b7bb4ac7964a3d38eac1b';
+  function unlock(){
+    document.getElementById('pw-gate').style.display='none';
+    document.getElementById('pw-main').classList.add('unlocked');
+  }
+  // copy logo from main content into gate card
+  const mainLogo=document.querySelector('.brinqa-logo-img');
+  if(mainLogo) document.getElementById('pw-logo-img').src=mainLogo.src;
+  if(sessionStorage.getItem('brinqa_auth')==='1'){unlock();return;}
+  window.pwSubmit=async function(){
+    const val=document.getElementById('pw-input').value;
+    if(!val) return;
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
+    const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex===HASH){
+      sessionStorage.setItem('brinqa_auth','1');
+      unlock();
+    } else {
+      const card=document.querySelector('.pw-card');
+      card.classList.remove('pw-shake');
+      void card.offsetWidth;
+      card.classList.add('pw-shake');
+      document.getElementById('pw-error').textContent='Incorrect password. Please try again.';
+      document.getElementById('pw-input').value='';
+      document.getElementById('pw-input').focus();
+    }
+  };
+})();
+</script>
 
 </body>
 </html>
