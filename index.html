@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>(function(){const t=localStorage.getItem('brinqa_theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})()</script>
 <style>
 :root {
 --bg-primary: #040D1A;
@@ -162,19 +163,20 @@ overflow-x: auto;
 .tabs-row::-webkit-scrollbar { display: none; }
 .tabs-row-1 {
 padding-bottom: 0.2rem;
-border-bottom: 1px solid rgba(255,255,255,0.04);
+border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .tabs-row-2 {
 padding-top: 0.3rem;
 padding-bottom: 0.5rem;
+background: rgba(0,0,0,0.15);
 }
 /* keep .tabs for any legacy refs */
 .tabs { display: flex; gap: 0.3rem; padding: 0.75rem 2.5rem; max-width: 1400px; margin: 0 auto; }
 .tabs::-webkit-scrollbar { display: none; }
 .tab {
 background: transparent;
-border: 1px solid var(--border-subtle);
-color: var(--text-secondary);
+border: 1px solid rgba(255,255,255,0.14);
+color: rgba(255,255,255,0.82);
 padding: 0.38rem 0.9rem;
 flex-shrink: 0;
 border-radius: var(--radius-sm);
@@ -186,10 +188,18 @@ white-space: nowrap;
 letter-spacing: 0.01em;
 font-family: 'Inter', sans-serif;
 }
-.tab:hover { background: rgba(0,175,102,0.08); color: var(--text-primary); border-color: rgba(0,175,102,0.3); }
+.tab:hover { background: rgba(0,175,102,0.12); color: white; border-color: rgba(0,175,102,0.4); }
 .tab.active { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 18px rgba(0,175,102,0.4), 0 2px 8px rgba(0,0,0,0.4); }
-.tab.quest-tab { border-color: rgba(0,175,102,0.35); color: var(--accent-light); }
+.tab.quest-tab { border-color: rgba(255,255,255,0.14); color: rgba(255,255,255,0.82); }
 .tab.quest-tab.active { background: var(--accent); color: white; }
+.tabs-row-2 .tab {
+color: rgba(255,255,255,0.5);
+border-color: rgba(255,255,255,0.07);
+font-size: 0.74rem;
+padding: 0.28rem 0.72rem;
+}
+.tabs-row-2 .tab:hover { background: rgba(0,175,102,0.1); color: rgba(255,255,255,0.85); border-color: rgba(0,175,102,0.3); }
+.tabs-row-2 .tab.active { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 14px rgba(0,175,102,0.35), 0 2px 6px rgba(0,0,0,0.3); }
 
 /* ── Tab Content ── */
 .tab-content { display: none; padding: 2rem 2.5rem; max-width: 1400px; margin: 0 auto; scroll-margin-top: 60px; }
@@ -618,20 +628,20 @@ color: #59CB9C;
 .print-btn {
 display: inline-flex;
 align-items: center;
-gap: 0.4rem;
-background: transparent;
-border: 1px solid rgba(255,255,255,0.15);
-color: var(--text-muted);
-padding: 0.35rem 0.85rem;
+gap: 0.45rem;
+background: rgba(0,175,102,0.15);
+border: 1px solid rgba(0,175,102,0.3);
+color: var(--accent-light);
+padding: 0.4rem 1rem;
 border-radius: 20px;
-font-size: 0.75rem;
+font-size: 0.78rem;
 font-weight: 500;
 cursor: pointer;
-transition: all 160ms ease;
+transition: background 150ms ease, border-color 150ms ease;
 margin-bottom: 1rem;
 float: right;
 }
-.print-btn:hover { border-color: rgba(255,255,255,0.35); color: var(--text-primary); }
+.print-btn:hover { background: rgba(0,175,102,0.25); border-color: rgba(0,175,102,0.5); color: var(--accent-light); }
 
 /* ── Copy pitch button ── */
 .copy-pitch-btn {
@@ -674,9 +684,9 @@ z-index: 50;
 display: inline-flex;
 align-items: center;
 gap: 0.35rem;
-background: rgba(245,158,11,0.1);
-border: 1px solid rgba(245,158,11,0.2);
-color: #fbbf24;
+background: transparent;
+border: 1px solid rgba(0,175,102,0.2);
+color: rgba(0,175,102,0.5);
 padding: 0.2rem 0.65rem;
 border-radius: 20px;
 font-weight: 600;
@@ -688,6 +698,16 @@ font-weight: 600;
 .tab-content { display: block !important; }
 section:not(.printing) { display: none !important; }
 section.printing { display: block !important; }
+
+/* Scoring matrix: landscape-friendly compact layout */
+.matrix-wrapper { overflow: visible !important; }
+.scoring-matrix { min-width: 0 !important; width: 100% !important; table-layout: fixed !important; font-size: 0.55rem !important; }
+.scoring-matrix thead th { padding: 0.25rem 0.18rem !important; font-size: 0.5rem !important; line-height: 1.2 !important; word-break: break-word !important; }
+.scoring-matrix thead th:first-child { min-width: 0 !important; width: 14% !important; }
+.scoring-matrix tbody td { padding: 0.22rem 0.18rem !important; font-size: 0.52rem !important; }
+.score-bar { display: none !important; }
+.score-num { font-size: 0.6rem !important; }
+.matrix-controls, .matrix-legend { display: none !important; }
 }
 
 
@@ -967,6 +987,36 @@ transition: all 160ms;
 margin-top: 0.5rem;
 }
 .qualify-reset-btn:hover { border-color: rgba(255,255,255,0.25); color: var(--text-secondary); }
+.qualify-multi-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+gap: 0.5rem;
+margin-bottom: 0.5rem;
+}
+.qualify-multi-grid .qualify-btn { width: 100%; text-align: left; line-height: 1.3; padding: 0.55rem 1rem; border-radius: var(--radius-sm); white-space: normal; }
+.q3-cat-hint { display: block; font-size: 0.67rem; opacity: 0.58; font-weight: 400; margin-top: 0.15rem; }
+.q3-subrow { display: none; margin: 0.25rem 0 0.4rem; padding: 0.6rem 0.85rem; background: rgba(0,175,102,0.06); border: 1px solid rgba(0,175,102,0.15); border-radius: var(--radius-sm); }
+.q3-subrow.visible { display: block; }
+.q3-subrow-label { font-size: 0.71rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+.q3-subrow-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.q3-subrow-pills .qualify-btn { font-size: 0.76rem; padding: 0.25rem 0.75rem; border-radius: 20px; width: auto; }
+.qualify-multi-confirm { margin-top: 0.6rem; }
+.qualify-confirm-btn {
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+background: var(--accent);
+border: none;
+color: white;
+padding: 0.42rem 1.15rem;
+border-radius: 20px;
+font-size: 0.8rem;
+font-weight: 600;
+cursor: pointer;
+font-family: 'Inter', sans-serif;
+transition: background 150ms;
+}
+.qualify-confirm-btn:hover { background: var(--accent-hover); }
 
 /* Result card */
 .qualify-result {
@@ -1103,6 +1153,7 @@ header { padding: 0.9rem 1rem; }
 .header-divider { display: none; }
 .header-right { display: none; }
 .brinqa-logo-img { height: 26px; }
+.brinqa-logo-light { height: 26px; }
 header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 .header-badge { font-size: 0.6rem; padding: 0.15rem 0.5rem; }
 
@@ -1233,6 +1284,158 @@ header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 .pw-shake { animation: pw-shake 0.4s ease; }
 #pw-main { display: none; }
 #pw-main.unlocked { display: block; }
+
+/* ── Logo variants ── */
+.brinqa-logo-light { height: 34px; width: auto; display: none; flex-shrink: 0; }
+
+/* ── Theme Toggle Button ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-normal);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+  padding: 0;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-toggle svg { display: block; }
+
+/* ── Light Mode ── */
+[data-theme="light"] {
+  --bg-primary: #F0F4F8;
+  --bg-elevated: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-hover: #E4EAF2;
+  --text-primary: #0D1B2E;
+  --text-secondary: rgba(13,27,46,0.72);
+  --text-muted: rgba(13,27,46,0.48);
+  --border-subtle: rgba(0,37,84,0.08);
+  --border-normal: rgba(0,37,84,0.16);
+  --accent-glow: rgba(0,175,102,0.12);
+  --quest-col: rgba(0,175,102,0.06);
+  --quest-col-header: rgba(0,175,102,0.14);
+}
+[data-theme="light"] .brinqa-logo-img { display: none; }
+[data-theme="light"] .brinqa-logo-light { display: block; }
+[data-theme="light"] body {
+  background-image: radial-gradient(ellipse 80% 50% at 20% 0%, rgba(0,37,84,0.06) 0%, transparent 60%), radial-gradient(ellipse 50% 30% at 80% 100%, rgba(0,175,102,0.04) 0%, transparent 60%);
+}
+[data-theme="light"] header {
+  background: linear-gradient(180deg, rgba(0,37,84,0.06) 0%, rgba(240,244,248,0.8) 100%);
+  border-bottom-color: rgba(0,175,102,0.2);
+}
+[data-theme="light"] .header-logo-area {
+  background: linear-gradient(135deg, rgba(0,175,102,0.04) 0%, transparent 60%);
+}
+[data-theme="light"] .header-badge {
+  background: rgba(0,175,102,0.12);
+  border-color: rgba(0,175,102,0.4);
+  color: #007a48;
+}
+[data-theme="light"] .header-badge::before { color: #007a48; }
+[data-theme="light"] .tabs-wrapper {
+  background: rgba(240,244,248,0.97);
+  border-bottom-color: rgba(0,37,84,0.12);
+}
+[data-theme="light"] .tab {
+  border-color: rgba(0,37,84,0.15);
+  color: var(--text-secondary);
+}
+[data-theme="light"] .tab:hover {
+  background: rgba(0,175,102,0.07);
+  border-color: rgba(0,175,102,0.3);
+  color: var(--text-primary);
+}
+[data-theme="light"] .tabs-row-2 {
+  background: rgba(0,37,84,0.04);
+}
+[data-theme="light"] .tabs-row-2 .tab {
+  color: var(--text-muted);
+  border-color: rgba(0,37,84,0.1);
+}
+[data-theme="light"] .tabs-row-2 .tab:hover {
+  color: var(--text-primary);
+  border-color: rgba(0,175,102,0.3);
+}
+[data-theme="light"] .scoring-matrix tbody tr {
+  border-bottom-color: rgba(0,37,84,0.06);
+}
+[data-theme="light"] .total-row td {
+  border-top-color: rgba(0,37,84,0.14) !important;
+}
+[data-theme="light"] .score-bar {
+  background: rgba(0,37,84,0.08);
+}
+[data-theme="light"] .sources-toggle {
+  border-top-color: rgba(0,37,84,0.08);
+}
+[data-theme="light"] .quick-table th,
+[data-theme="light"] .quick-table td {
+  border-bottom-color: rgba(0,37,84,0.07);
+}
+[data-theme="light"] .h2h-table tbody tr {
+  border-bottom-color: rgba(0,37,84,0.06);
+}
+[data-theme="light"] .h2h-table thead th {
+  border-bottom-color: rgba(0,37,84,0.1);
+}
+[data-theme="light"] .h2h-table tfoot tr {
+  border-top-color: rgba(0,37,84,0.14);
+}
+[data-theme="light"] .h2h-win-chip.tie {
+  background: rgba(0,37,84,0.05);
+}
+[data-theme="light"] .h2h-select {
+  border-color: rgba(0,37,84,0.18);
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(0,37,84,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}
+[data-theme="light"] .qualify-step.answered-no {
+  border-color: rgba(0,37,84,0.08);
+}
+[data-theme="light"] .qualify-btn {
+  border-color: rgba(0,37,84,0.14);
+}
+[data-theme="light"] .qualify-btn:hover {
+  background: rgba(0,175,102,0.06);
+  border-color: rgba(0,175,102,0.35);
+}
+[data-theme="light"] .qualify-btn:disabled {
+  background: rgba(0,37,84,0.03);
+  border-color: rgba(0,37,84,0.07);
+  color: rgba(0,37,84,0.22);
+}
+[data-theme="light"] .qualify-reset-btn:hover {
+  border-color: rgba(0,37,84,0.22);
+}
+[data-theme="light"] .print-btn { background: rgba(0,175,102,0.1); border-color: rgba(0,175,102,0.3); color: #007a48; }
+[data-theme="light"] .print-btn:hover { background: rgba(0,175,102,0.18); border-color: rgba(0,175,102,0.45); color: #007a48; }
+[data-theme="light"] .last-updated-bar {
+  background: rgba(240,244,248,0.97);
+  border-top-color: rgba(0,37,84,0.1);
+}
+[data-theme="light"] .card-obj .objection-item .obj-verdict.lose { color: #dc2626; }
+[data-theme="light"] .card-obj .objection-item .obj-verdict.win { color: #047857; }
+[data-theme="light"] .pillar-card {
+  background: linear-gradient(135deg, rgba(0,175,102,0.08) 0%, transparent 60%);
+  border-color: rgba(0,175,102,0.2);
+}
+[data-theme="light"] .pricing-chart-container {
+  background: #1a2e45 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
 </style>
 </head>
 <body>
@@ -1254,6 +1457,7 @@ header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 <div class="header-inner">
 <div class="header-left">
 <div class="brinqa-logo">
+<img src="Brinqa_RGB_2C.png" alt="Brinqa" class="brinqa-logo-light">
 <img src="data:image/png;base64,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" alt="Brinqa" class="brinqa-logo-img">
 </div>
 <div class="header-divider"></div>
@@ -1263,9 +1467,8 @@ header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 </div>
 </div>
 <div class="header-right">
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode" aria-label="Toggle light/dark mode"></button>
 <div class="header-meta">
-<span>April 2026</span>
-<span>10 Competitors</span>
 </div>
 </div>
 </div>
@@ -1275,11 +1478,11 @@ header h1 { font-size: 1rem; letter-spacing: -0.02em; }
 <nav>
 <!-- Row 1: Tools & modes -->
 <div class="tabs-row tabs-row-1">
-<button class="tab" onclick="showTab('qualify', this)" style="border-color:rgba(16,185,129,0.5);color:#34d399;font-weight:700;">🎯 Deal Qualifier</button>
+<button class="tab" onclick="showTab('qualify', this)" style="font-weight:700;">🎯 Deal Qualifier</button>
 <button class="tab active" onclick="showTab('matrix', this)">📊 Scoring Matrix</button>
-<button class="tab" onclick="showTab('h2h', this)" style="border-color:rgba(0,175,102,0.4);color:var(--accent-light);">⚔ Head-to-Head</button>
+<button class="tab" onclick="showTab('h2h', this)">⚔️ Head-to-Head</button>
 <button class="tab quest-tab" onclick="showTab('quest-summary', this)">⚡ Brinqa Summary</button>
-<button class="tab" onclick="showTab('pricing', this)" style="border-color:rgba(16,185,129,0.4);color:#34d399;">💰 Pricing</button>
+<button class="tab" onclick="showTab('pricing', this)">💰 Pricing</button>
 </div>
 <!-- Row 2: Vendor battlecards -->
 <div class="tabs-row tabs-row-2">
@@ -1354,15 +1557,45 @@ DEAL QUALIFIER TAB
 <!-- Q3 -->
 <div class="qualify-step" id="qStep2">
 <div class="qualify-q-num">Question 3 of 5</div>
-<div class="qualify-question">What are they evaluating today, if anything?</div>
-<div class="qualify-sub">Determines which battlecard to lead with and how to position Brinqa in the evaluation.</div>
-<div class="qualify-btns">
-<button class="qualify-btn" onclick="answerQ(2, 'tenable', this)">Tenable or Qualys</button>
-<button class="qualify-btn" onclick="answerQ(2, 'rapid7', this)">Rapid7</button>
-<button class="qualify-btn" onclick="answerQ(2, 'crowdstrike', this)">Wiz or CrowdStrike</button>
-<button class="qualify-btn" onclick="answerQ(2, 'xmcyber', this)">XM Cyber or Zafran</button>
-<button class="qualify-btn" onclick="answerQ(2, 'nothing', this)">No formal platform yet</button>
-<button class="qualify-btn" onclick="answerQ(2, 'unknown', this)">Unknown / mixed</button>
+<div class="qualify-question">Which type of platform are they comparing Brinqa against?</div>
+<div class="qualify-sub">Select all that apply, then optionally narrow to a specific vendor.</div>
+<div class="qualify-multi-grid" id="q3Grid">
+<button class="qualify-btn qualify-toggle q3-cat-btn" data-cat="vm" onclick="toggleQ3Cat('vm', this)">VM / RBVM platforms<span class="q3-cat-hint">Tenable · Qualys · Rapid7 · Ivanti</span></button>
+<button class="qualify-btn qualify-toggle q3-cat-btn" data-cat="cloud" onclick="toggleQ3Cat('cloud', this)">Cloud-first platforms<span class="q3-cat-hint">Wiz · CrowdStrike</span></button>
+<button class="qualify-btn qualify-toggle q3-cat-btn" data-cat="attackpath" onclick="toggleQ3Cat('attackpath', this)">Attack path / validation<span class="q3-cat-hint">XM Cyber · Zafran</span></button>
+<button class="qualify-btn qualify-toggle q3-cat-btn" data-cat="orchestration" onclick="toggleQ3Cat('orchestration', this)">Risk orchestration<span class="q3-cat-hint">Nucleus · ArmorCode</span></button>
+<button class="qualify-btn qualify-toggle q3-exclusive" data-val="nothing" onclick="toggleQ3Exclusive('nothing', this)">No formal platform yet</button>
+<button class="qualify-btn qualify-toggle q3-exclusive" data-val="unknown" onclick="toggleQ3Exclusive('unknown', this)">Unknown / mixed</button>
+</div>
+<div class="q3-subrow" id="q3sub-vm">
+<div class="q3-subrow-label">Narrow to specific vendor (optional — leave blank to include all)</div>
+<div class="q3-subrow-pills">
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('vm','tenable',this)">Tenable</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('vm','qualys',this)">Qualys</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('vm','rapid7',this)">Rapid7</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('vm','ivanti',this)">Ivanti</button>
+</div>
+</div>
+<div class="q3-subrow" id="q3sub-cloud">
+<div class="q3-subrow-label">Narrow to specific vendor (optional)</div>
+<div class="q3-subrow-pills">
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('cloud','wiz',this)">Wiz</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('cloud','crowdstrike',this)">CrowdStrike</button>
+</div>
+</div>
+<div class="q3-subrow" id="q3sub-attackpath">
+<div class="q3-subrow-label">Narrow to specific vendor (optional)</div>
+<div class="q3-subrow-pills">
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('attackpath','xmcyber',this)">XM Cyber</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('attackpath','zafran',this)">Zafran</button>
+</div>
+</div>
+<div class="q3-subrow" id="q3sub-orchestration">
+<div class="q3-subrow-label">Narrow to specific vendor (optional)</div>
+<div class="q3-subrow-pills">
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('orchestration','nucleus',this)">Nucleus</button>
+<button class="qualify-btn qualify-toggle" onclick="toggleQ3Vendor('orchestration','armorcode',this)">ArmorCode</button>
+</div>
 </div>
 </div>
 
@@ -1426,20 +1659,21 @@ DEAL QUALIFIER TAB
 SCORING MATRIX TAB
 ══════════════════════════════════════════════════════ -->
 <section id="matrix" class="tab-content active">
+<button class="print-btn" onclick="printMatrix()">🖨 Print Scoring Matrix</button>
 <h2>UEM & RBVM Capability Scoring Matrix</h2>
-<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:1.25rem;">Scores 1–10 across 16 dimensions including pricing transparency. Scenario filter highlights what matters for your deal. Click headers to sort. Brinqa column highlighted in blue.</p>
+<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:1.25rem;">Scores 10 Brinqa competitors across 16 dimensions including pricing transparency. Scenario filter highlights what matters for your deal. Click headers to sort. Brinqa column highlighted in green.</p>
 
 <div class="filter-bar">
 <div class="filter-bar-title">⚡ Scenario Filter — Select what applies to your prospect</div>
 <div class="filter-chips">
-<span class="filter-chip" onclick="applyFilter(this, 'tenable')" data-scenario="tenable">They use Tenable or Qualys</span>
-<span class="filter-chip" onclick="applyFilter(this, 'crowdstrike')" data-scenario="crowdstrike">They use CrowdStrike</span>
-<span class="filter-chip" onclick="applyFilter(this, 'remediation')" data-scenario="remediation">Remediation workflow is broken</span>
-<span class="filter-chip" onclick="applyFilter(this, 'multiscanner')" data-scenario="multiscanner">Multiple scanners / tool sprawl</span>
+<span class="filter-chip" onclick="applyFilter(this, 'tenable')" data-scenario="tenable">Tenable / Qualys replacement</span>
 <span class="filter-chip" onclick="applyFilter(this, 'cloud')" data-scenario="cloud">Cloud-first / Wiz / CNAPP</span>
-<span class="filter-chip" onclick="applyFilter(this, 'budget')" data-scenario="budget">Budget / cost sensitivity</span>
-<span class="filter-chip" onclick="applyFilter(this, 'compliance')" data-scenario="compliance">Compliance / regulatory driver</span>
-<span class="filter-chip" onclick="applyFilter(this, 'board')" data-scenario="board">Board-level risk reporting</span>
+<span class="filter-chip" onclick="applyFilter(this, 'fragmented')" data-scenario="fragmented">Too many tools / fragmented data</span>
+<span class="filter-chip" onclick="applyFilter(this, 'prioritization')" data-scenario="prioritization">Too many findings / weak prioritization</span>
+<span class="filter-chip" onclick="applyFilter(this, 'remediation')" data-scenario="remediation">Remediation workflow is broken</span>
+<span class="filter-chip" onclick="applyFilter(this, 'board')" data-scenario="board">Board / CISO reporting</span>
+<span class="filter-chip" onclick="applyFilter(this, 'compliance')" data-scenario="compliance">Compliance / audit pressure</span>
+<span class="filter-chip" onclick="applyFilter(this, 'ot')" data-scenario="ot">OT / hybrid complexity</span>
 </div>
 <div class="filter-note" id="filterNote" style="display:none;"></div>
 </div>
@@ -1617,6 +1851,7 @@ Compare Brinqa against any single competitor across all 16 dimensions. Brinqa is
 QUEST SUMMARY TAB
 ══════════════════════════════════════════════════════ -->
 <section id="quest-summary" class="tab-content">
+<button class="print-btn" onclick="printTab('quest-summary')">🖨 Print Brinqa Summary</button>
 <div class="quest-hero">
 <h2>Brinqa — The Full Story</h2>
 <p>Brinqa is not a vulnerability scanner — it is a <strong>unified exposure management and risk orchestration platform</strong> that sits above your existing security stack. Brinqa ingests findings from every scanner, cloud and identity tool, application security platform, pen test, and threat intelligence feed you already own, then normalizes them into a single <strong>Cyber Risk Graph</strong> and long-term data layer with consistent, AI-enhanced scoring. That trusted data foundation lets Brinqa reconcile conflicting signals, fill ownership gaps, and route deduplicated, prioritized exposure records to the right IT, cloud, and app teams through automated workflows and existing ITSM tools. The result: fewer critical exposures left open, faster and more predictable remediation SLAs, and defensible, business-level risk narratives your CISO can confidently present to the board.</p>
@@ -1809,7 +2044,7 @@ QUALYS TAB
 <div class="profile-grid">
 <div class="profile-item"><div class="profile-key">Product</div><div class="profile-val">Enterprise TruRisk Platform (VMDR 4.0, TruRisk Management, TotalCloud)</div></div>
 <div class="profile-item"><div class="profile-key">Target Market</div><div class="profile-val">Enterprise; regulated sectors — financial services, healthcare, government</div></div>
-<div class="profile-item"><div class="profile-key">Pricing Model</div><div class="profile-val">$500/mo entry; enterprise custom; asset-volume based; 25+ feeds included</div></div>
+<div class="profile-item"><div class="profile-key">Pricing Model</div><div class="profile-val">Per-asset; VMDR list ~$199/asset/yr; ~$500–$2k/mo at low asset counts; ~$37.5k/yr median (Vendr); enterprise custom</div></div>
 <div class="profile-item"><div class="profile-key">Deployment</div><div class="profile-val">Cloud-based + on-prem virtual scanners; lightweight agent available</div></div>
 <div class="profile-item"><div class="profile-key">Key Strength</div><div class="profile-val">73,000+ vulnerability signatures; CRQ + CTEM; compliance automation</div></div>
 <div class="profile-item"><div class="profile-key">Analyst Recognition</div><div class="profile-val">Gartner Magic Quadrant Leader (Exposure Assessment Platforms 2025)</div></div>
@@ -2168,7 +2403,7 @@ WIZ TAB
 <div class="profile-grid">
 <div class="profile-item"><div class="profile-key">Product</div><div class="profile-val">Wiz CNAPP (CSPM + CWPP + KSPM + DSPM + vulnerability + IaC + CIEM)</div></div>
 <div class="profile-item"><div class="profile-key">Target Market</div><div class="profile-val">Cloud-first organizations on AWS/Azure/GCP; DevSecOps and AppSec teams</div></div>
-<div class="profile-item"><div class="profile-key">Pricing Model</div><div class="profile-val">Workload-based; median ~$111,500/yr enterprise; no per-user fees</div></div>
+<div class="profile-item"><div class="profile-key">Pricing Model</div><div class="profile-val">Workload-based; ~$20k–$40k/yr (Essential/Advanced, ~100 workloads); median ~$150k/yr enterprise (Vendr); no per-user fees</div></div>
 <div class="profile-item"><div class="profile-key">Deployment</div><div class="profile-val">Agentless; zero infrastructure changes; cloud-native SaaS</div></div>
 <div class="profile-item"><div class="profile-key">Key Strength</div><div class="profile-val">Agentless cloud coverage; unified CNAPP; graph-based cloud attack path analysis</div></div>
 <div class="profile-item"><div class="profile-key">Market Note</div><div class="profile-val">Google acquisition pending EU review; strong momentum despite uncertainty</div></div>
@@ -2228,7 +2463,7 @@ WIZ TAB
 <li>Brinqa Wiz connector documentation: <a href="https://docs.brinqa.com/docs/connectors/wiz" target="_blank">docs.brinqa.com/docs/connectors/wiz</a></li>
 <li>PeerSpot Brinqa vs. Wiz: <a href="https://www.peerspot.com/products/comparisons/brinqa_vs_wiz" target="_blank">peerspot.com</a></li>
 <li>G2 Brinqa vs. Wiz: <a href="https://www.g2.com/compare/brinqa-vs-wiz-wiz" target="_blank">g2.com/compare/brinqa-vs-wiz-wiz</a></li>
-<li>Wiz pricing reference: Vendr deal data and G2 buyer reports (~$111k median)</li>
+<li>Wiz pricing reference: Vendr deal data and G2 buyer reports (~$150k median)</li>
 </ul>
 </div>
 </section>
@@ -2509,19 +2744,22 @@ ZAFRAN TAB
 </div>
 </div>
 
+<div class="battlecard-grid">
+<div class="card">
+<span class="section-label">Company Profile</span>
 <div class="profile-grid">
 <div class="profile-item"><div class="profile-key">Founded</div><div class="profile-val">2022 (Tel Aviv, Israel); acquired by CrowdStrike Dec 2024</div></div>
 <div class="profile-item"><div class="profile-key">Product</div><div class="profile-val">Zafran RBVM — security controls validation, controls-aware risk scoring, agentless SaaS deployment</div></div>
 <div class="profile-item"><div class="profile-key">Target Market</div><div class="profile-val">Security operations teams wanting fast time-to-value on risk prioritization; CrowdStrike Falcon customers post-acquisition</div></div>
 <div class="profile-item"><div class="profile-key">Pricing Model</div><div class="profile-val">Custom; now part of CrowdStrike Falcon pricing; no published standalone pricing</div></div>
 <div class="profile-item"><div class="profile-key">Deployment</div><div class="profile-val">Agentless SaaS; API-based integration with existing scanners and security controls (EDR, firewall, WAF, cloud)</div></div>
-<div class="profile-item"><div class="profile-key">Key Differentiator</div><div class="profile-val">Identifies which vulnerabilities are actually exploitable using reachability, runtime presence, and security controls context — filtering remediation to what attackers can realistically use</div></div>
+<div class="profile-item"><div class="profile-key">Key Strength</div><div class="profile-val">Identifies which vulnerabilities are actually exploitable using reachability, runtime presence, and security controls context — filtering remediation to what attackers can realistically use</div></div>
+</div>
 </div>
 
-<div class="battlecard-grid">
-<div class="battlecard-col">
-<div class="section-label-bar"><span class="section-label">Where Brinqa Wins</span></div>
-<ul class="win-list">
+<div class="card card-win">
+<span class="section-label">Where Brinqa Wins</span>
+<ul class="item-list">
 <li><strong>Enterprise-Wide Data Unification vs. Vulnerability Filtering:</strong> Zafran solves a specific and valuable problem: filtering your existing vulnerability findings down to what's actually exploitable. Brinqa solves the upstream problem: reconciling many different sources of truth — scanners, cloud tools, CMDB, identity systems, and business context — into one coherent exposure model before any filtering or prioritization happens. If your challenge is data chaos across many tools, Zafran's prioritization signal is one input to Brinqa, not a replacement for it (brinqa.com 2026).</li>
 <li><strong>Vendor Independence and Roadmap Certainty:</strong> Zafran is now a CrowdStrike acquisition. Organizations that don't run the Falcon platform are buying into a roadmap being steered toward CrowdStrike ecosystem value — not toward broader vendor agnosticism. Brinqa is intentionally multi-vendor: aggregating from Tenable, Qualys, Rapid7, Wiz, and any scanner simultaneously, with no ecosystem lock-in.</li>
 <li><strong>Cyber Risk Quantification for the CISO and Board:</strong> Zafran produces exploitability-based prioritization output for security operations teams. Brinqa produces financial risk language — exposure in dollar terms, risk reduction ROI, board-ready dashboards — for the CISO and executive audience. Different buyers, different conversation.</li>
@@ -2529,15 +2767,18 @@ ZAFRAN TAB
 <li><strong>Remediation Orchestration:</strong> Zafran's output is prioritized findings. Brinqa's output is closed tickets — ITSM integration, SLA tracking, owner assignment, and closed-loop verification. For security teams measured on time-to-remediate, the workflow automation layer is where the operational value lives.</li>
 </ul>
 </div>
-<div class="battlecard-col">
-<div class="section-label-bar"><span class="section-label">Where Zafran Wins</span></div>
-<ul class="win-list">
+
+<div class="card card-lose">
+<span class="section-label">Where Zafran Wins</span>
+<ul class="item-list">
 <li><strong>Exploitability-Based Prioritization — Reachability and Runtime Context:</strong> Zafran's core strength is identifying which vulnerabilities are actually exploitable right now — using reachability signals, runtime presence data, and security controls context to filter out findings that can't realistically be used by attackers. For teams suffering from remediation overload, this noise reduction approach is compelling: focus only on what matters, immediately, without building a broad data-correlation layer first (PeerSpot 2025).</li>
 <li><strong>Immediate Efficiency for Lean Security Teams:</strong> Zafran is especially attractive for lean teams that want fast time-to-value without the implementation overhead of a broader exposure platform. Its agentless, API-first deployment means time to first actionable insight can be days rather than weeks — a meaningful advantage for teams exhausted by complex VM rollouts and looking for quick wins on remediation backlog reduction.</li>
 <li><strong>CrowdStrike Falcon Integration:</strong> Post-acquisition, Zafran integrates natively with the Falcon platform, giving existing CrowdStrike customers a tightly coupled exploitability-based prioritization layer without additional vendor complexity. For organizations already standardizing on CrowdStrike, this is a natural and low-friction extension.</li>
 </ul>
+</div>
 
-<div class="section-label-bar" style="margin-top:1rem;"><span class="section-label">Objection Handling</span></div>
+<div class="card card-obj">
+<span class="section-label">Objection Handling</span>
 <div class="objection-item">
 <div class="objection-q">"We just want to focus on the vulnerabilities that are actually exploitable — not build a broad data layer."</div>
 <div class="objection-a">That's exactly Zafran's use case and it's a valid starting point. The question is whether exploitability filtering alone constitutes an enterprise exposure program. After you know which 5% of findings are truly exploitable, you still need: a way to normalize those findings alongside your cloud misconfigurations and identity exposures, a workflow to route them to the right team with SLA accountability, and a board-ready number that shows risk posture trend. Brinqa handles all of that — and can ingest Zafran's exploitability signal as one input into its broader risk model.</div>
@@ -2551,17 +2792,17 @@ ZAFRAN TAB
 <div class="objection-a">If your organization is already a full CrowdStrike shop, the integration story is compelling. If you run a multi-vendor stack — Tenable for scanning, Wiz for cloud, Rapid7 for SIEM — the question is whether Zafran's roadmap continues to serve non-Falcon environments or whether feature investment migrates toward Falcon-native capabilities as the acquisition matures. That's a real strategic risk worth pricing into a multi-year evaluation.</div>
 </div>
 </div>
-</div>
 
-<div class="landmine-section">
-<div class="landmine-title">🧨 Landmine Questions</div>
+<div class="card card-land">
+<span class="section-label">Landmine Questions</span>
 <div class="landmine-item">"Zafran identifies which findings are actually exploitable — once your team has that list, who routes those findings to the right remediation team, enforces SLA deadlines, and verifies closure?"</div>
 <div class="landmine-item">"Given that CrowdStrike acquired Zafran in late 2024, what assurances has your account team given you about the standalone product roadmap for non-Falcon environments over the next 18–24 months?"</div>
 <div class="landmine-item">"Zafran filters down to exploitable findings for your SecOps team — how does that output get translated into board-level financial risk language for your CISO's quarterly review?"</div>
 <div class="landmine-item">"How do Zafran's exploitability signals integrate with your cloud misconfigurations, identity exposures, and OT risk findings into a single normalized risk view today?"</div>
 </div>
+</div>
 
-<div class="sources-toggle" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+<div class="sources-toggle" onclick="toggleSources(this)">
 <span class="arrow">▶</span> Sources &amp; Research References
 </div>
 <div class="sources-body">
@@ -2575,12 +2816,13 @@ ZAFRAN TAB
 </section>
 
 <section id="pricing" class="tab-content">
+<button class="print-btn" onclick="printTab('pricing')">🖨 Print Pricing View</button>
 <h2>Price vs. Capability Quadrant</h2>
 <p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:1.5rem;">
 X axis = price / TCO (left = lower cost). Y axis = UEM/RBVM capability depth (higher = better). Ideal position: upper-left.
-Brinqa pricing is indicative — verify before quoting. Competitor pricing estimated from Vendr deal data, G2 reviews, and analyst reports. All figures indicative.</p>
+All competitor pricing is approximate and based on publicly available guides and anonymized deal data (Vendr, G2, analyst reports). Always verify with the vendor or prospect before discussing specific numbers.</p>
 
-<div style="background:var(--bg-surface);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
+<div class="pricing-chart-container" style="background:var(--bg-surface);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;margin-bottom:2rem;">
 <svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;display:block;margin:0 auto;">
 <defs>
 <marker id="arrowX" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.3)"/></marker>
@@ -2602,75 +2844,72 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <line x1="80" y1="270" x2="860" y2="270" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="5,4"/>
 
 <!-- Brinqa: low-mid cost, high capability → upper-left -->
-<text x="170" y="98" fill="white" font-size="12" font-family="sans-serif" font-weight="800" text-anchor="middle">Brinqa</text>
-<text x="170" y="112" fill="#59CB9C" font-size="9" font-family="sans-serif" text-anchor="middle">Custom / quote</text>
-<text x="170" y="124" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">122 / 160</text>
 <circle cx="170" cy="88" r="3" fill="#00AF66"/>
+<text x="170" y="106" fill="white" font-size="12" font-family="sans-serif" font-weight="800" text-anchor="middle">Brinqa</text>
+<text x="170" y="120" fill="#59CB9C" font-size="9" font-family="sans-serif" text-anchor="middle">Custom / quote</text>
+<text x="170" y="132" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">122 / 160</text>
 
 <!-- Nucleus: low cost, mid-high capability -->
-<text x="175" y="168" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Nucleus</text>
-<text x="175" y="180" fill="rgba(96,165,250,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom subscription</text>
-<text x="175" y="192" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">107 / 160</text>
 <circle cx="175" cy="158" r="3" fill="#60a5fa"/>
+<text x="175" y="176" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Nucleus</text>
+<text x="175" y="188" fill="rgba(96,165,250,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom subscription</text>
+<text x="175" y="200" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">107 / 160</text>
 
 <!-- Ivanti: low cost, lower capability -->
-<text x="220" y="320" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Ivanti</text>
-<text x="220" y="332" fill="rgba(245,158,11,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Bundled / custom</text>
-<text x="220" y="344" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">98 / 160</text>
 <circle cx="220" cy="310" r="3" fill="#f59e0b"/>
+<text x="220" y="328" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Ivanti</text>
+<text x="220" y="340" fill="rgba(245,158,11,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Bundled / custom</text>
+<text x="220" y="352" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">98 / 160</text>
 
 <!-- Rapid7: mid cost, high capability -->
-<text x="380" y="88" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Rapid7</text>
-<text x="380" y="100" fill="rgba(16,185,129,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">SaaS per-asset</text>
-<text x="380" y="112" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">118 / 160</text>
 <circle cx="380" cy="78" r="3" fill="#10b981"/>
+<text x="380" y="96" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Rapid7</text>
+<text x="380" y="108" fill="rgba(16,185,129,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">SaaS per-asset</text>
+<text x="380" y="120" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">118 / 160</text>
 
 <!-- XM Cyber: mid-high cost, high capability -->
-<text x="530" y="158" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">XM Cyber</text>
-<text x="530" y="170" fill="rgba(90,163,223,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom / quote</text>
-<text x="530" y="182" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">112 / 160</text>
 <circle cx="530" cy="148" r="3" fill="#a855f7"/>
+<text x="530" y="166" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">XM Cyber</text>
+<text x="530" y="178" fill="rgba(90,163,223,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom / quote</text>
+<text x="530" y="190" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">112 / 160</text>
 
 <!-- Qualys: mid cost, very high capability -->
-<text x="420" y="135" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Qualys</text>
-<text x="420" y="147" fill="rgba(251,191,36,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">$500/mo entry; custom</text>
-<text x="420" y="159" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">123 / 160</text>
 <circle cx="420" cy="125" r="3" fill="#fbbf24"/>
+<text x="420" y="143" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Qualys</text>
+<text x="420" y="155" fill="rgba(251,191,36,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">~$500–$2k/mo entry</text>
+<text x="420" y="167" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">123 / 160</text>
 
 <!-- Tenable: mid-high cost, very high capability -->
-<text x="600" y="118" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Tenable</text>
-<text x="600" y="130" fill="rgba(239,68,68,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">$50k–75k+/yr</text>
-<text x="600" y="142" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">127 / 160</text>
 <circle cx="600" cy="108" r="3" fill="#ef4444"/>
+<text x="600" y="126" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Tenable</text>
+<text x="600" y="138" fill="rgba(239,68,68,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">$50k–75k+/yr</text>
+<text x="600" y="150" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">127 / 160</text>
 
 <!-- CrowdStrike: high cost, highest capability -->
-<text x="770" y="118" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">CrowdStrike</text>
-<text x="770" y="130" fill="rgba(239,68,68,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Per-endpoint; bundled</text>
-<text x="770" y="142" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">130 / 160</text>
 <circle cx="770" cy="108" r="3" fill="#f87171"/>
+<text x="770" y="126" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">CrowdStrike</text>
+<text x="770" y="138" fill="rgba(239,68,68,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Per-endpoint; bundled</text>
+<text x="770" y="150" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">130 / 160</text>
 
 <!-- Wiz: mid-high cost, high cloud capability -->
-<text x="660" y="188" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Wiz</text>
-<text x="660" y="200" fill="rgba(96,165,250,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">~$111k/yr median</text>
-<text x="660" y="212" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">117 / 160</text>
 <circle cx="660" cy="178" r="3" fill="#60a5fa"/>
+<text x="660" y="196" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">Wiz</text>
+<text x="660" y="208" fill="rgba(96,165,250,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">~$150k/yr median</text>
+<text x="660" y="220" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">117 / 160</text>
 
 
 
 <!-- ArmorCode: mid cost, lower infra capability -->
-<text x="490" y="330" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">ArmorCode</text>
-<text x="490" y="342" fill="rgba(90,163,223,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom enterprise</text>
-<text x="490" y="354" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">106 / 160</text>
 <circle cx="490" cy="320" r="3" fill="#a855f7"/>
+<text x="490" y="338" fill="white" font-size="11" font-family="sans-serif" font-weight="700" text-anchor="middle">ArmorCode</text>
+<text x="490" y="350" fill="rgba(90,163,223,0.85)" font-size="9" font-family="sans-serif" text-anchor="middle">Custom enterprise</text>
+<text x="490" y="362" fill="rgba(255,255,255,0.45)" font-size="8" font-family="sans-serif" text-anchor="middle">106 / 160</text>
 
-<!-- Brinqa callout -->
-<line x1="215" y1="105" x2="275" y2="118" stroke="rgba(0,175,102,0.35)" stroke-width="1" stroke-dasharray="3,2"/>
-<text x="279" y="116" fill="rgba(0,175,102,0.65)" font-size="9" font-family="sans-serif" font-weight="600">← Best value position</text>
 </svg>
 </div>
 
 <h2>Pricing Reference Table</h2>
-<p style="color:var(--text-muted);font-size:0.75rem;margin-bottom:1rem;">Brinqa pricing is indicative — verify before quoting. Competitor pricing from Vendr anonymized deal data, G2 reviews, and analyst reports. Always verify before quoting a prospect.</p>
+<p style="color:var(--text-muted);font-size:0.75rem;margin-bottom:1rem;">All competitor pricing is public reference pricing from Vendr deal data, G2 reviews, and analyst reports. All figures are approximate — always verify with the vendor or prospect before discussing specific numbers.</p>
 <div style="overflow-x:auto;">
 <table class="quick-table" style="min-width:800px;">
 <thead>
@@ -2681,6 +2920,7 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <th>Entry Price</th>
 <th>Enterprise Est.</th>
 <th>Transparency</th>
+<th>Discounting</th>
 <th>Brinqa Angle</th>
 </tr>
 </thead>
@@ -2688,29 +2928,32 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <tr style="background:rgba(0,175,102,0.06);">
 <td style="color:#59CB9C;font-weight:700;">Brinqa ✦</td>
 <td>Unified Exposure Management Platform</td>
-<td>Custom subscription; modular — buy what you need; per-asset or per-org tiers</td>
+<td>Custom subscription; scaled by assets, data sources, and modules</td>
 <td style="color:#34d399;font-weight:600;">Custom / quote</td>
-<td style="color:#34d399;font-weight:600;">Custom; competitive vs. Tenable at scale</td>
+<td style="color:#34d399;font-weight:600;">Mid–high 5-figures to low 6-figures for large enterprises</td>
 <td><span style="color:#fbbf24;">Custom ⚠</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Lead with TCO: Brinqa replaces manual spreadsheet work, reduces remediation time, and produces board-ready risk output. One avoided breach or regulatory fine pays for years of Brinqa licensing.</td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Case-by-case</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Lead with TCO: Brinqa replaces manual spreadsheet work, reduces remediation time, and produces board-ready risk output. Frame the build-vs-buy question — the real cost is hiring analysts, maintaining integrations, and accepting program gaps. One avoided breach or regulatory fine covers years of Brinqa licensing.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">Tenable</td>
 <td>Tenable One</td>
 <td>Asset-volume tiers; complex scoping required</td>
-<td>~$50k/yr (small env)</td>
+<td>~$50k+/yr (Tenable One platform tier)</td>
 <td>$75k–$200k+/yr enterprise</td>
 <td><span style="color:#fbbf24;">Partial</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Scanning depth is strong. Missing: multi-source aggregation, CRQ, orchestration. Brinqa runs on top of Tenable.</td>
+<td><span style="color:#34d399;font-size:0.8rem;">High</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Scanning depth is strong. Missing: multi-source aggregation, CRQ, orchestration. Brinqa runs on top of Tenable. Note: lower-cost Nessus/Tenable.io SKUs are scanner-only — not comparable to Brinqa.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">Qualys</td>
 <td>Enterprise TruRisk Platform</td>
-<td>Asset-volume; some published tiers</td>
-<td>$500/mo entry</td>
-<td>Enterprise custom; complex scoping</td>
+<td>Per-asset; VMDR list ~$199/asset/yr; scales fast with volume</td>
+<td>~$500–$2k/mo at low asset counts</td>
+<td>~$37.5k/yr median (Vendr); enterprise custom</td>
 <td><span style="color:#34d399;">Partial ✓</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Entry accessible but enterprise pricing climbs fast. Missing multi-scanner aggregation and CRQ. Brinqa adds the orchestration layer.</td>
+<td><span style="color:#34d399;font-size:0.8rem;">High</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Entry accessible but per-asset cost structure climbs fast at enterprise scale. Rewards negotiation. Missing multi-scanner aggregation and CRQ. Brinqa adds the orchestration layer above Qualys.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">Rapid7</td>
@@ -2719,6 +2962,7 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <td>Varies by asset count</td>
 <td>Mid-market friendly; negotiated</td>
 <td><span style="color:#fbbf24;">Partial</span></td>
+<td><span style="color:#34d399;font-size:0.8rem;">High</span></td>
 <td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Strong mid-market positioning. Surface Command is Rapid7-only data. Missing cross-vendor aggregation and financial risk output.</td>
 </tr>
 <tr>
@@ -2728,43 +2972,48 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <td>Custom only</td>
 <td>Enterprise custom; perceived premium</td>
 <td><span style="color:#ef4444;">Opaque</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Niche attack path focus. Lacks scanning breadth and remediation program management. Brinqa adds the "what do we do about it" layer.</td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Case-by-case</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Attack-path / exploitability focus — often complementary to Brinqa, not a replacement. Brinqa can ingest XM Cyber output as one signal in the broader exposure model and operationalize it into managed, SLA-tracked remediation.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">CrowdStrike</td>
 <td>Falcon Exposure Management</td>
-<td>Per-endpoint/yr; bundled in Falcon platform</td>
+<td>Per-endpoint/yr; bundled in Falcon platform; varies widely by modules and volume</td>
 <td>Falcon platform required</td>
 <td>Bundled; expensive outside Falcon ecosystem</td>
 <td><span style="color:#fbbf24;">Partial</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Platform lock-in. Best value for existing Falcon customers only. Non-Falcon assets not covered.</td>
+<td><span style="color:#fbbf24;font-size:0.8rem;">Medium</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Exposure management is not usually purchased standalone. Platform lock-in — non-Falcon assets are structurally excluded. Best value only for existing Falcon-heavy shops.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">Wiz</td>
 <td>Wiz CNAPP</td>
 <td>Workload-based scaling; no per-user fees</td>
-<td>~$10k–$30k/yr (small)</td>
-<td>~$111k/yr median enterprise</td>
+<td>~$20k–$40k/yr (Essential/Advanced, ~100 workloads)</td>
+<td>~$150k/yr median (Vendr)</td>
 <td><span style="color:#fbbf24;">Partial</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Cloud-only. No on-prem/OT. No remediation program management. Brinqa aggregates Wiz findings alongside everything else.</td>
+<td><span style="color:#fbbf24;font-size:0.8rem;">Medium</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Cloud-only. No on-prem/OT. No remediation program management. Brinqa aggregates Wiz findings alongside everything else into one unified risk model.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">Nucleus Security</td>
 <td>Nucleus 3.0</td>
 <td>Custom subscription; asset-volume tiers</td>
 <td>Custom only</td>
-<td>Custom; challenger-stage pricing</td>
+<td>Tens of thousands into low six figures; treat as opaque</td>
 <td><span style="color:#ef4444;">Opaque</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Newer entrant. Strong custom risk models but less proven at enterprise scale. Brinqa has deeper CRQ and longer enterprise track record.</td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Case-by-case</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Vulnerability-intelligence scope only. Strong custom risk models but less proven at enterprise scale. Brinqa has deeper data unification, broader CRQ, and a longer enterprise track record.</td>
 </tr>
 <tr>
 <td style="font-weight:600;">ArmorCode</td>
 <td>ASPM Platform</td>
 <td>Custom enterprise SaaS; usage-based options</td>
 <td>Custom only</td>
-<td>Custom; Fortune 1000 focus</td>
+<td>Tens of thousands into low six figures; treat as opaque</td>
 <td><span style="color:#ef4444;">Opaque</span></td>
-<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">AppSec-only buyer. Brinqa serves CISO/IT security ops buyer — different use case and buying center.</td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Case-by-case</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">AppSec-only buyer. Brinqa serves the CISO/IT security ops buyer with full-stack exposure — a different use case and buying center entirely.</td>
 </tr>
 
 <tr>
@@ -2774,7 +3023,18 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <td>Custom; Neurons bundle</td>
 <td>Custom; requires broader Neurons commitment</td>
 <td><span style="color:#ef4444;">Opaque</span></td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Case-by-case</span></td>
 <td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Only compelling inside existing Ivanti ecosystem. No cloud/OT depth, no CRQ. Brinqa is vendor-agnostic and broader.</td>
+</tr>
+<tr>
+<td style="font-weight:600;">Zafran</td>
+<td>Exposure Validation (CrowdStrike)</td>
+<td>Now part of CrowdStrike Falcon pricing; no published standalone pricing</td>
+<td>Custom; bundled in CrowdStrike</td>
+<td>Custom; roadmap tied to CrowdStrike Falcon</td>
+<td><span style="color:#ef4444;">Opaque</span></td>
+<td><span style="color:rgba(255,255,255,0.45);font-size:0.8rem;">N/A (bundled)</span></td>
+<td style="color:rgba(255,255,255,0.5);font-size:0.75rem;">Exploitability filtering is the core value — Zafran's output can feed into Brinqa as one signal. Acquired by CrowdStrike (Dec 2024); roadmap uncertainty for non-Falcon environments.</td>
 </tr>
 </tbody>
 </table>
@@ -2794,7 +3054,7 @@ Brinqa pricing is indicative — verify before quoting. Competitor pricing estim
 <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;">Pre-built integrations across security stack<br><span style="font-size:0.65rem;opacity:0.6;">scanners, SIEM, ITSM, cloud tools</span></div>
 </div>
 </div>
-<p style="color:var(--text-muted);font-size:0.7rem;margin-top:0.75rem;">Competitor pricing from Vendr anonymized deal data, G2 reviews, and analyst reports (Gartner MQ EAP 2025, IDC MarketScape 2025). All figures indicative — verify before quoting.</p>
+<p style="color:var(--text-muted);font-size:0.7rem;margin-top:0.75rem;">All competitor pricing is public reference pricing based on Vendr anonymized deal data, G2 reviews, and analyst reports (Gartner MQ EAP 2025, IDC MarketScape 2025). All figures are approximate — always verify with the vendor or prospect before discussing specific numbers.</p>
 </section>
 
 <script>
@@ -2941,42 +3201,42 @@ body.classList.toggle("open");
 const scenarios = {
 tenable: {
 dims: [5, 6, 7, 12], // Remediation Workflow, Integration Ecosystem, CRQ, Deployment
-note: "Highlighted: where Brinqa differentiates vs Tenable/Qualys — remediation orchestration, integrations, CRQ. Jump to → Tenable battlecard.",
+note: "Highlighted: where Brinqa displaces Tenable/Qualys — remediation orchestration, multi-source integration, and CRQ that scanner platforms don't provide. Jump to → Tenable battlecard.",
 tab: "tenable"
-},
-crowdstrike: {
-dims: [0, 6, 7, 2], // Asset Discovery, Integration, CRQ, Attack Surface
-note: "Highlighted: dimensions where Brinqa wins vs CrowdStrike — platform-agnostic aggregation, CRQ, and broader coverage. Jump to → CrowdStrike battlecard.",
-tab: "crowdstrike"
-},
-remediation: {
-dims: [5, 6, 11, 7], // Remediation Workflow, Integrations, Compliance, CRQ
-note: "Highlighted: Brinqa's core strength — remediation orchestration, integration ecosystem, and program management. This is the primary win case.",
-tab: null
-},
-multiscanner: {
-dims: [0, 2, 6, 1], // Asset Discovery, Attack Surface, Integrations, Risk Prioritization
-note: "Highlighted: Brinqa's vendor-agnostic aggregation across multiple scanners is the core value prop for multi-tool environments.",
-tab: null
 },
 cloud: {
 dims: [8, 0, 2, 5], // Cloud Coverage, Asset Discovery, Attack Surface, Remediation
-note: "Heads up: Wiz leads in pure cloud scanning. Position Brinqa as the aggregation layer on top of Wiz for organizations with hybrid or multi-tool environments. Jump to → Wiz battlecard.",
+note: "Heads up: Wiz leads in pure cloud scanning. Position Brinqa as the aggregation layer above Wiz for hybrid organizations — cloud plus on-prem, OT, and identity in one risk model. Jump to → Wiz battlecard.",
 tab: 'wiz'
 },
-budget: {
-dims: [15, 12, 1, 13], // Pricing Transparency, Deployment, Risk Prioritization, Scalability
-note: "Highlighted: pricing transparency and deployment simplicity — use Brinqa's modular approach and faster time-to-value as the TCO anchor.",
+fragmented: {
+dims: [0, 6, 1, 2], // Asset Discovery, Integration Ecosystem, Risk Prioritization, Attack Surface
+note: "Highlighted: Brinqa's core data-unification advantage — vendor-agnostic aggregation, normalized asset inventory, and consistent risk scoring across every tool in the stack.",
 tab: null
 },
-compliance: {
-dims: [11, 1, 14, 7], // Compliance & Reporting, Risk Prioritization, Analyst Recognition, CRQ
-note: "Highlighted: compliance and reporting dimensions. Brinqa maps to NIST, PCI, HIPAA frameworks and produces board-ready risk dashboards.",
+prioritization: {
+dims: [1, 7, 3, 11], // Risk Prioritization, CRQ, Threat Intelligence, Compliance
+note: "Highlighted: Brinqa converts finding overload into a prioritized, business-contextualized list — applying asset criticality, compensating controls, and financial risk context that raw CVE scores ignore.",
+tab: null
+},
+remediation: {
+dims: [5, 6, 11, 7], // Remediation Workflow, Integration Ecosystem, Compliance, CRQ
+note: "Highlighted: Brinqa's primary win case — closed-loop remediation orchestration with ITSM routing, SLA enforcement, cross-team accountability, and verified closure.",
 tab: null
 },
 board: {
 dims: [7, 11, 14, 1], // CRQ, Compliance & Reporting, Analyst Recognition, Risk Prioritization
-note: "Highlighted: board-level risk reporting dimensions. Brinqa's CRQ converts technical findings into financial risk language — the primary differentiator for CISO/board conversations.",
+note: "Highlighted: Brinqa's CRQ converts technical findings into financial risk language — the primary differentiator for CISO and board-level conversations.",
+tab: null
+},
+compliance: {
+dims: [11, 1, 14, 7], // Compliance & Reporting, Risk Prioritization, Analyst Recognition, CRQ
+note: "Highlighted: Brinqa maps to NIST, PCI-DSS, HIPAA, and SOC 2 frameworks and produces evidence-ready dashboards for auditors and risk committees.",
+tab: null
+},
+ot: {
+dims: [9, 0, 6, 2], // OT/IoT Coverage, Asset Discovery, Integration Ecosystem, Attack Surface
+note: "Highlighted: Brinqa aggregates risk across on-prem, OT/IoT, cloud, and legacy assets in one normalized model — the key advantage in hybrid environments where cloud-only tools have blind spots.",
 tab: null
 }
 };
@@ -3038,14 +3298,27 @@ row.classList.remove('dim-highlighted', 'dim-dimmed');
 
 // ── Print battlecard ──
 function printTab(id) {
-// Mark the target section for printing
 document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('printing'));
 const section = document.getElementById(id);
 if (section) section.classList.add('printing');
 window.print();
-// Clean up after print dialog closes
 setTimeout(() => {
 document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('printing'));
+}, 2000);
+}
+
+function printMatrix() {
+const style = document.createElement('style');
+style.id = '_matrix_landscape';
+style.textContent = '@page { size: landscape; margin: 0.35in; }';
+document.head.appendChild(style);
+document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('printing'));
+document.getElementById('matrix').classList.add('printing');
+window.print();
+setTimeout(() => {
+document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('printing'));
+const el = document.getElementById('_matrix_landscape');
+if (el) el.remove();
 }, 2000);
 }
 
@@ -3201,6 +3474,93 @@ tfoot.innerHTML = `
 
 // ── Deal Qualifier ──
 const qAnswers = [null, null, null, null, null];
+const competitorTabMap = {
+  tenable:    { tab: 'tenable',    label: 'Tenable' },
+  qualys:     { tab: 'qualys',     label: 'Qualys' },
+  wiz:        { tab: 'wiz',        label: 'Wiz' },
+  nucleus:    { tab: 'nucleus',    label: 'Nucleus' },
+  crowdstrike:{ tab: 'crowdstrike',label: 'CrowdStrike' },
+  zafran:     { tab: 'zafran',     label: 'Zafran' },
+  armorcode:  { tab: 'armorcode',  label: 'ArmorCode' },
+  rapid7:     { tab: 'rapid7',     label: 'Rapid7' },
+  xmcyber:    { tab: 'xmcyber',   label: 'XM Cyber' },
+  ivanti:     { tab: 'ivanti',     label: 'Ivanti' },
+};
+
+const catDefs = {
+  vm:           { vendors: ['tenable','qualys','rapid7','ivanti'] },
+  cloud:        { vendors: ['wiz','crowdstrike'] },
+  attackpath:   { vendors: ['xmcyber','zafran'] },
+  orchestration:{ vendors: ['nucleus','armorcode'] },
+};
+const q3SelectedCats = new Set();
+const q3VendorOverrides = {};
+
+function updateQ3Answer() {
+  const exclusiveBtn = document.querySelector('#q3Grid .q3-exclusive.selected');
+  const step = document.getElementById('qStep2');
+  if (exclusiveBtn) {
+    qAnswers[2] = [exclusiveBtn.getAttribute('data-val')];
+  } else if (q3SelectedCats.size > 0) {
+    const result = [];
+    q3SelectedCats.forEach(catKey => {
+      const ov = q3VendorOverrides[catKey];
+      result.push(...(ov && ov.size > 0 ? [...ov] : catDefs[catKey].vendors));
+    });
+    qAnswers[2] = result;
+  } else {
+    qAnswers[2] = null;
+    step.classList.remove('answered');
+    return;
+  }
+  step.classList.add('answered');
+  step.classList.remove('answered-no');
+  if (qAnswers.every(a => a !== null)) buildQualifierResult();
+}
+
+function toggleQ3Cat(catKey, btn) {
+  document.querySelectorAll('#q3Grid .q3-exclusive').forEach(b => b.classList.remove('selected'));
+  const subrow = document.getElementById('q3sub-' + catKey);
+  if (q3SelectedCats.has(catKey)) {
+    q3SelectedCats.delete(catKey);
+    delete q3VendorOverrides[catKey];
+    btn.classList.remove('selected');
+    if (subrow) { subrow.classList.remove('visible'); subrow.querySelectorAll('.qualify-btn').forEach(b2 => b2.classList.remove('selected')); }
+  } else {
+    q3SelectedCats.add(catKey);
+    q3VendorOverrides[catKey] = new Set();
+    btn.classList.add('selected');
+    if (subrow) subrow.classList.add('visible');
+  }
+  updateQ3Answer();
+}
+
+function toggleQ3Vendor(catKey, vendor, btn) {
+  if (!q3VendorOverrides[catKey]) q3VendorOverrides[catKey] = new Set();
+  if (q3VendorOverrides[catKey].has(vendor)) {
+    q3VendorOverrides[catKey].delete(vendor);
+    btn.classList.remove('selected');
+  } else {
+    q3VendorOverrides[catKey].add(vendor);
+    btn.classList.add('selected');
+  }
+  updateQ3Answer();
+}
+
+function toggleQ3Exclusive(val, btn) {
+  q3SelectedCats.forEach(catKey => {
+    const catBtn = document.querySelector(`#q3Grid [data-cat="${catKey}"]`);
+    if (catBtn) catBtn.classList.remove('selected');
+    const subrow = document.getElementById('q3sub-' + catKey);
+    if (subrow) { subrow.classList.remove('visible'); subrow.querySelectorAll('.qualify-btn').forEach(b => b.classList.remove('selected')); }
+    delete q3VendorOverrides[catKey];
+  });
+  q3SelectedCats.clear();
+  const wasSelected = btn.classList.contains('selected');
+  document.querySelectorAll('#q3Grid .q3-exclusive').forEach(b => b.classList.remove('selected'));
+  if (!wasSelected) btn.classList.add('selected');
+  updateQ3Answer();
+}
 
 function answerQ(idx, val, btn) {
 qAnswers[idx] = val;
@@ -3219,7 +3579,9 @@ buildQualifierResult();
 }
 
 function buildQualifierResult() {
-const [scanners, pain, competitor, environment, buyer] = qAnswers;
+const [scanners, pain, competitorArr, environment, buyer] = qAnswers;
+const competitors = Array.isArray(competitorArr) ? competitorArr : (competitorArr ? [competitorArr] : []);
+const realCompetitors = competitors.filter(c => c !== 'nothing' && c !== 'unknown');
 
 let primary = null;
 let secondary = [];
@@ -3260,18 +3622,12 @@ else if (scanners === 'single') {
 icon = '🔍';
 title = 'Single-scanner gap play — the orchestration layer is missing';
 sub = 'Tenable, Qualys, or Rapid7 covers scanning well. The missing layer is multi-source aggregation, remediation orchestration, and CRQ. Brinqa is additive, not competitive.';
-if (competitor === 'tenable') {
-primary = { tab: 'tenable', label: 'Tenable', isPrimary: true };
-} else if (competitor === 'rapid7') {
-primary = { tab: 'rapid7', label: 'Rapid7', isPrimary: true };
-} else if (competitor === 'crowdstrike') {
-primary = { tab: 'crowdstrike', label: 'CrowdStrike', isPrimary: true };
-secondary.push({ tab: 'wiz', label: 'Wiz' });
-} else if (competitor === 'xmcyber') {
-primary = { tab: 'xmcyber', label: 'XM Cyber', isPrimary: true };
-secondary.push({ tab: 'zafran', label: 'Zafran' });
+if (realCompetitors.length > 0) {
+const first = competitorTabMap[realCompetitors[0]];
+if (first) primary = { tab: first.tab, label: first.label, isPrimary: true };
+realCompetitors.slice(1).forEach(c => { if (competitorTabMap[c]) secondary.push(competitorTabMap[c]); });
 } else {
-primary = { tab: 'qualys', label: 'Qualys', isPrimary: true };
+primary = { tab: 'quest-summary', label: 'Brinqa Summary', isPrimary: true };
 }
 secondary.push({ tab: 'h2h', label: 'Head-to-Head comparison' });
 secondary.push({ tab: 'pricing', label: '💰 Pricing' });
@@ -3290,10 +3646,7 @@ sub = 'Multiple scanners means fragmented risk views, manual normalization, and 
 primary = { tab: 'quest-summary', label: 'Brinqa Summary', isPrimary: true };
 secondary.push({ tab: 'matrix', label: 'Full Scoring Matrix' });
 secondary.push({ tab: 'pricing', label: '💰 Pricing' });
-if (competitor === 'tenable') secondary.push({ tab: 'tenable', label: 'Tenable' });
-else if (competitor === 'rapid7') secondary.push({ tab: 'rapid7', label: 'Rapid7' });
-else if (competitor === 'crowdstrike') { secondary.push({ tab: 'crowdstrike', label: 'CrowdStrike' }); secondary.push({ tab: 'wiz', label: 'Wiz' }); }
-else if (competitor === 'xmcyber') { secondary.push({ tab: 'xmcyber', label: 'XM Cyber' }); secondary.push({ tab: 'zafran', label: 'Zafran' }); }
+realCompetitors.forEach(c => { if (competitorTabMap[c]) secondary.push(competitorTabMap[c]); });
 landmines = [
 `How are you normalizing findings from your different scanners today — Tenable for on-prem, Wiz for cloud, pen test results, manual assessments — into a single prioritized risk view?`,
 `When a finding comes from Rapid7 and another comes from Qualys for the same asset, how do you reconcile those today?`,
@@ -3391,6 +3744,9 @@ result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 function resetQualifier() {
 for (let i = 0; i < qAnswers.length; i++) qAnswers[i] = null;
+q3SelectedCats.clear();
+Object.keys(q3VendorOverrides).forEach(k => delete q3VendorOverrides[k]);
+document.querySelectorAll('.q3-subrow').forEach(r => { r.classList.remove('visible'); r.querySelectorAll('.qualify-btn').forEach(b => b.classList.remove('selected')); });
 document.querySelectorAll('.qualify-step').forEach(s => {
 s.classList.remove('answered', 'answered-no');
 s.querySelectorAll('.qualify-btn').forEach(b => {
@@ -3417,6 +3773,29 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 buildMatrix();
+
+function updateThemeIcon(theme) {
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  if (theme === 'light') {
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    btn.setAttribute('title', 'Switch to dark mode');
+  } else {
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+    btn.setAttribute('title', 'Switch to light mode');
+  }
+}
+
+function toggleTheme() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  if (next === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  localStorage.setItem('brinqa_theme', next);
+  updateThemeIcon(next);
+}
+
+updateThemeIcon(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 </script>
 
 
